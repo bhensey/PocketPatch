@@ -1,6 +1,8 @@
 import React from 'react';
 import {
+  Animated,
   Image,
+  Easing,
   Platform,
   ScrollView,
   StyleSheet,
@@ -17,18 +19,76 @@ export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { pressed: false };
+
+    this.breatheValue = new Animated.Value(0)
   }
+
   static navigationOptions = {
     header: null,
   };
+
   _panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => true,
-    onPanResponderGrant: (evt, gestureState) => {this.setState({pressed: true });},
-    onPanResponderRelease: (evt, gestureState) => {this.setState({pressed: false });},
+    onPanResponderGrant: (evt, gestureState) => {
+      this.setState({pressed: true });
+      this.breathe();
+    },
+    onPanResponderRelease: (evt, gestureState) => {
+      this.setState({pressed: false });
+      this.exhale();
+    },
   });
+
+  breathe() {
+    /**
+     * TODO
+     * change duration to dynamic based on speed
+     */
+    Animated.timing(
+      this.breatheValue,
+      {
+        toValue: 100,
+        duration: 4000,
+        easing: Easing.linear
+      }
+    ).start()
+  }
+
+  exhale() {
+
+    /**
+     * TODO
+     * change duration to dynamic based on speed
+     * change duration to be based on breathe time
+     */
+    Animated.timing(
+      this.breatheValue,
+      {
+        toValue: 0,
+        duration: 4000,
+        easing: Easing.linear
+      }
+    ).start()
+  }
+
   render() {
+    const breathe = this.breatheValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [1, 1.5]
+    })
+
     return (
       <View style={this.state.pressed ? styles.containerPressed : styles.container} {...this._panResponder.panHandlers}>
+          <Animated.Image
+            style={{
+              transform: [{scale: breathe}],
+              flex: 1,
+              width: "75%",
+              height: undefined,
+            }}
+            resizeMode="contain"
+            source={require("../assets/images/panda.png")}
+            />
       </View>
     );
   }
@@ -78,7 +138,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    backgroundColor: 'red',
   },
   developmentModeText: {
     marginBottom: 20,
