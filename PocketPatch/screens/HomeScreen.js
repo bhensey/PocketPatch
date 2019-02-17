@@ -1,65 +1,94 @@
 import React from 'react';
 import {
+  Animated,
   Image,
+  Easing,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  PanResponder
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { pressed: false };
+
+    this.breatheValue = new Animated.Value(0)
+  }
+
   static navigationOptions = {
     header: null,
   };
 
+  _panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: (evt, gestureState) => true,
+    onPanResponderGrant: (evt, gestureState) => {
+      this.setState({pressed: true });
+      this.breathe();
+    },
+    onPanResponderRelease: (evt, gestureState) => {
+      this.setState({pressed: false });
+      this.exhale();
+    },
+  });
+
+  breathe() {
+    /**
+     * TODO
+     * change duration to dynamic based on speed
+     */
+    Animated.timing(
+      this.breatheValue,
+      {
+        toValue: 100,
+        duration: 4000,
+        easing: Easing.linear
+      }
+    ).start()
+  }
+
+  exhale() {
+
+    /**
+     * TODO
+     * change duration to dynamic based on speed
+     * change duration to be based on breathe time
+     */
+    Animated.timing(
+      this.breatheValue,
+      {
+        toValue: 0,
+        duration: 4000,
+        easing: Easing.linear
+      }
+    ).start()
+  }
+
   render() {
+    const breathe = this.breatheValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [1, 1.5]
+    })
+
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
-              }
-              style={styles.welcomeImage}
+      <View style={this.state.pressed ? styles.containerPressed : styles.container} {...this._panResponder.panHandlers}>
+          <Animated.Image
+            style={{
+              transform: [{scale: breathe}],
+              flex: 1,
+              width: "75%",
+              height: undefined,
+            }}
+            resizeMode="contain"
+            source={require("../assets/images/panda.png")}
             />
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Hello World
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
-          </View>
-        </ScrollView>
-
-        <View style={styles.tabBarInfoContainer}>
-          <Text style={styles.tabBarInfoText}>This is a tab bar. You can edit it in:</Text>
-
-          <View style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-            <MonoText style={styles.codeHighlightText}>navigation/MainTabNavigator.js</MonoText>
-          </View>
-        </View>
       </View>
     );
   }
@@ -100,8 +129,15 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
+    justifyContent: 'center',
     flex: 1,
     backgroundColor: '#fff',
+  },
+  containerPressed: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
   },
   developmentModeText: {
     marginBottom: 20,
