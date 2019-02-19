@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Animated,
   Image,
@@ -10,33 +10,32 @@ import {
   TouchableOpacity,
   View,
   PanResponder
-} from 'react-native';
-import { WebBrowser } from 'expo';
+} from "react-native";
+import { WebBrowser } from "expo";
 
-import { MonoText } from '../components/StyledText';
+import { MonoText } from "../components/StyledText";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = { pressed: false };
-
-    this.breatheValue = new Animated.Value(0)
+    this.breatheValue = new Animated.Value(0);
   }
 
   static navigationOptions = {
-    header: null,
+    header: null
   };
 
   _panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => true,
     onPanResponderGrant: (evt, gestureState) => {
-      this.setState({pressed: true });
+      this.setState({ pressed: true });
       this.breathe();
     },
     onPanResponderRelease: (evt, gestureState) => {
-      this.setState({pressed: false });
+      this.setState({ pressed: false });
       this.exhale();
-    },
+    }
   });
 
   breathe() {
@@ -44,51 +43,47 @@ export default class HomeScreen extends React.Component {
      * TODO
      * change duration to dynamic based on speed
      */
-    Animated.timing(
-      this.breatheValue,
-      {
-        toValue: 100,
-        duration: 4000,
-        easing: Easing.linear
-      }
-    ).start()
+    Animated.timing(this.breatheValue, {
+      toValue: 100,
+      duration: 4000,
+      easing: Easing.linear
+    }).start();
   }
 
   exhale() {
-
     /**
      * TODO
      * change duration to dynamic based on speed
      * change duration to be based on breathe time
      */
-    Animated.timing(
-      this.breatheValue,
-      {
-        toValue: 0,
-        duration: 4000,
-        easing: Easing.linear
-      }
-    ).start()
+    Animated.timing(this.breatheValue, {
+      toValue: 0,
+      duration: 4000,
+      easing: Easing.linear
+    }).start();
   }
 
   render() {
     const breathe = this.breatheValue.interpolate({
       inputRange: [0, 100],
       outputRange: [1, 1.5]
-    })
+    });
 
     return (
-      <View style={this.state.pressed ? styles.containerPressed : styles.container} {...this._panResponder.panHandlers}>
-          <Animated.Image
-            style={{
-              transform: [{scale: breathe}],
-              flex: 1,
-              width: "75%",
-              height: undefined,
-            }}
-            resizeMode="contain"
-            source={require("../assets/images/panda.png")}
-            />
+      <View
+        style={this.state.pressed ? styles.containerPressed : styles.container}
+        {...this._panResponder.panHandlers}
+      >
+        <Animated.Image
+          style={{
+            transform: [{ scale: breathe }],
+            flex: 1,
+            width: "75%",
+            height: undefined
+          }}
+          resizeMode="contain"
+          source={require("../assets/images/panda.png")}
+        />
       </View>
     );
   }
@@ -103,8 +98,8 @@ export default class HomeScreen extends React.Component {
 
       return (
         <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
+          Development mode is enabled, your app will be slower but you can use
+          useful development tools. {learnMoreButton}
         </Text>
       );
     } else {
@@ -117,108 +112,110 @@ export default class HomeScreen extends React.Component {
   }
 
   _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+    WebBrowser.openBrowserAsync(
+      "https://docs.expo.io/versions/latest/guides/development-mode"
+    );
   };
 
   _handleHelpPress = () => {
     WebBrowser.openBrowserAsync(
-      'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
+      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
     );
   };
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   containerPressed: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    flex: 1
   },
   developmentModeText: {
     marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
+    color: "rgba(0,0,0,0.4)",
     fontSize: 14,
     lineHeight: 19,
-    textAlign: 'center',
+    textAlign: "center"
   },
   contentContainer: {
-    paddingTop: 30,
+    paddingTop: 30
   },
   welcomeContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 10,
-    marginBottom: 20,
+    marginBottom: 20
   },
   welcomeImage: {
     width: 100,
     height: 80,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     marginTop: 3,
-    marginLeft: -10,
+    marginLeft: -10
   },
   getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50,
+    alignItems: "center",
+    marginHorizontal: 50
   },
   homeScreenFilename: {
-    marginVertical: 7,
+    marginVertical: 7
   },
   codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
+    color: "rgba(96,100,109, 0.8)"
   },
   codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
+    backgroundColor: "rgba(0,0,0,0.05)",
     borderRadius: 3,
-    paddingHorizontal: 4,
+    paddingHorizontal: 4
   },
   getStartedText: {
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
+    color: "rgba(96,100,109, 1)",
     lineHeight: 24,
-    textAlign: 'center',
+    textAlign: "center"
   },
   tabBarInfoContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
     ...Platform.select({
       ios: {
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOffset: { height: -3 },
         shadowOpacity: 0.1,
-        shadowRadius: 3,
+        shadowRadius: 3
       },
       android: {
-        elevation: 20,
-      },
+        elevation: 20
+      }
     }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
+    alignItems: "center",
+    backgroundColor: "#fbfbfb",
+    paddingVertical: 20
   },
   tabBarInfoText: {
     fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
+    color: "rgba(96,100,109, 1)",
+    textAlign: "center"
   },
   navigationFilename: {
-    marginTop: 5,
+    marginTop: 5
   },
   helpContainer: {
     marginTop: 15,
-    alignItems: 'center',
+    alignItems: "center"
   },
   helpLink: {
-    paddingVertical: 15,
+    paddingVertical: 15
   },
   helpLinkText: {
     fontSize: 14,
-    color: '#2e78b7',
-  },
+    color: "#2e78b7"
+  }
 });
