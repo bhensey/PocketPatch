@@ -17,11 +17,12 @@ import * as Progress from "react-native-progress";
 import { Icon } from "react-native-elements";
 import { WebBrowser } from "expo";
 import { MonoText } from "../components/StyledText";
+import bearImages from "../assets/images/bearImages";
 
 export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { progress: 0, pressed: false };
+    this.state = { progress: 0, pressed: false, bearState: "angry" };
     this.breatheValue = new Animated.Value(0);
 
     setInterval(
@@ -45,10 +46,6 @@ export default class LinksScreen extends React.Component {
     }
   });
   breathe() {
-    /**
-     * TODO
-     * change duration to dynamic based on speed
-     */
     Animated.timing(this.breatheValue, {
       toValue: 100,
       duration: 4000,
@@ -57,11 +54,6 @@ export default class LinksScreen extends React.Component {
   }
 
   exhale() {
-    /**
-     * TODO
-     * change duration to dynamic based on speed
-     * change duration to be based on breathe time
-     */
     Animated.timing(this.breatheValue, {
       toValue: 0,
       duration: 4000,
@@ -84,6 +76,14 @@ export default class LinksScreen extends React.Component {
       inputRange: [0, 100],
       outputRange: [1, 1.4]
     });
+
+    if (this.state.progress < 0.33) {
+      this.state.bearState = "angry";
+    } else if (this.state.progress < 0.66) {
+      this.state.bearState = "neutral";
+    } else {
+      this.state.bearState = "calm";
+    }
 
     return (
       <ImageBackground
@@ -132,7 +132,7 @@ export default class LinksScreen extends React.Component {
                 zIndex: 5
               }}
               //resizeMode="contain"
-              source={require("../assets/images/Neutral-face-02.png")}
+              source={bearImages[this.state.bearState].face}
             />
             <Animated.Image
               style={{
@@ -144,7 +144,7 @@ export default class LinksScreen extends React.Component {
                 zIndex: 4
               }}
               //resizeMode="contain"
-              source={require("../assets/images/Neutral-head-02.png")}
+              source={bearImages[this.state.bearState].head}
             />
             <Animated.Image
               style={{
@@ -156,7 +156,7 @@ export default class LinksScreen extends React.Component {
                 zIndex: 3
               }}
               //resizeMode="contain"
-              source={require("../assets/images/Neutral-contracted-belly-02.png")}
+              source={bearImages[this.state.bearState].belly}
             />
             <Animated.Image
               style={{
@@ -168,7 +168,7 @@ export default class LinksScreen extends React.Component {
                 zIndex: 2
               }}
               //resizeMode="contain"
-              source={require("../assets/images/Neutral-limbs-02.png")}
+              source={bearImages[this.state.bearState].limb}
             />
           </View>
           <View style={{ flex: 1 }} />

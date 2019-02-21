@@ -82,7 +82,7 @@ export default class HomeScreen extends React.Component {
             height: undefined
           }}
           resizeMode="contain"
-          source={require("../assets/images/panda.png")}
+          source={require("../assets/images/angry/small.png")}
         />
       </View>
     );
