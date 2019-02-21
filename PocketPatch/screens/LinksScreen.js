@@ -72,7 +72,17 @@ export default class LinksScreen extends React.Component {
   render() {
     const breathe = this.breatheValue.interpolate({
       inputRange: [0, 100],
+      outputRange: [1, 1.3]
+    });
+
+    const breatheBelly = this.breatheValue.interpolate({
+      inputRange: [0, 100],
       outputRange: [1, 1.5]
+    });
+
+    const breatheLimbs = this.breatheValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [1, 1.4]
     });
 
     return (
@@ -115,12 +125,50 @@ export default class LinksScreen extends React.Component {
             <Animated.Image
               style={{
                 transform: [{ scale: breathe }],
-                flex: 1,
                 width: "70%",
-                height: undefined
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: 5
               }}
               //resizeMode="contain"
-              source={require("../assets/images/bear.png")}
+              source={require("../assets/images/Neutral-face-02.png")}
+            />
+            <Animated.Image
+              style={{
+                transform: [{ scale: breathe }],
+                width: "70%",
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: 4
+              }}
+              //resizeMode="contain"
+              source={require("../assets/images/Neutral-head-02.png")}
+            />
+            <Animated.Image
+              style={{
+                transform: [{ scale: breatheBelly }],
+                width: "70%",
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: 3
+              }}
+              //resizeMode="contain"
+              source={require("../assets/images/Neutral-contracted-belly-02.png")}
+            />
+            <Animated.Image
+              style={{
+                transform: [{ scale: breatheLimbs }],
+                width: "70%",
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: 2
+              }}
+              //resizeMode="contain"
+              source={require("../assets/images/Neutral-limbs-02.png")}
             />
           </View>
           <View style={{ flex: 1 }} />
