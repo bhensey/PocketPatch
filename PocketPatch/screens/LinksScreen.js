@@ -22,17 +22,18 @@ import bearImages from "../assets/images/bearImages";
 export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { progress: 0, pressed: false, bearState: "angry" };
+    this.state = { progress: 0, pressed: false, bearState: "angry", isRunning: 0 };
     this.breatheValue = new Animated.Value(0);
 
     setInterval(
-      () =>
-        this.setState(previousState => ({
-          progress: this.state.progress + 0.05
-        })),
-      1000
-    );
-  }
+      () => {
+          this.setState(previousState => ({
+            progress: this.state.progress + 0.05*this.state.isRunning
+              }))
+            },
+          1000
+        );
+}
 
   _panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -48,15 +49,16 @@ export default class LinksScreen extends React.Component {
   breathe() {
     Animated.timing(this.breatheValue, {
       toValue: 100,
-      duration: 4000,
+      duration: 2000,
       easing: Easing.linear
     }).start();
+    this.setState({isRunning: 1})
   }
 
   exhale() {
     Animated.timing(this.breatheValue, {
       toValue: 0,
-      duration: 4000,
+      duration: 2000,
       easing: Easing.linear
     }).start();
   }
