@@ -15,11 +15,27 @@ import { WebBrowser } from "expo";
 
 import { MonoText } from "../components/StyledText";
 
+const EXHALE_THRESHOLD = 20
+const INHALE_THRESHOLD = 80
+const UPDATE_INTERVAL = 100
+
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pressed: false };
+    this.state = {
+      pressed: false,
+
+      breathing: false,
+      exhaling: false,
+      numBreaths: 0,
+      successInhale: false,
+      successExhale: true
+    };
     this.breatheValue = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    this.update()
   }
 
   static navigationOptions = {
@@ -38,16 +54,51 @@ export default class HomeScreen extends React.Component {
     }
   });
 
+  /**
+   * Checks state of breathing and if necessary, updates the flags.
+   */
+  update() {
+    if (this.state.exhaling && this.breatheValue <= EXHALE_THRESHOLD) {
+      let { numBreaths } = this.state
+      if (this.state.successInhale) {
+        numBreaths += 1
+      }
+      this.setState({
+        successInhale: false,
+        successExhale: true,
+        numBreaths
+      }, () => {
+        setTimeout(this.update, UPDATE_INTERVAL)
+      })
+    } else if (this.state.exhaling && this.breatheValue >= INHALE_THRESHOLD) {
+      let successInhale = false
+      if (this.state.successExhale) {
+        successInhale = true
+      }
+      this.setState({
+        successInhale,
+        successExhale: false
+      }, () => {
+        setTimeout(this.update, UPDATE_INTERVAL)
+      })
+    }
+  }
+
   breathe() {
     /**
      * TODO
      * change duration to dynamic based on speed
      */
-    Animated.timing(this.breatheValue, {
-      toValue: 100,
-      duration: 4000,
-      easing: Easing.linear
-    }).start();
+    this.setState({
+      breathing: true,
+      exhaling: false
+    }, () => {
+      Animated.timing(this.breatheValue, {
+        toValue: 100,
+        duration: 4000,
+        easing: Easing.linear
+      }).start();
+    })
   }
 
   exhale() {
@@ -56,11 +107,16 @@ export default class HomeScreen extends React.Component {
      * change duration to dynamic based on speed
      * change duration to be based on breathe time
      */
-    Animated.timing(this.breatheValue, {
-      toValue: 0,
-      duration: 4000,
-      easing: Easing.linear
-    }).start();
+    this.setState({
+      breathing: false,
+      exhaling: true
+    }, () => {
+      Animated.timing(this.breatheValue, {
+        toValue: 0,
+        duration: 4000,
+        easing: Easing.linear
+      }).start();
+    })
   }
 
   render() {
@@ -84,44 +140,10 @@ export default class HomeScreen extends React.Component {
           resizeMode="contain"
           source={require("../assets/images/angry/small.png")}
         />
+
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use
-          useful development tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/development-mode"
-    );
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
-    );
-  };
 }
 
 const styles = StyleSheet.create({

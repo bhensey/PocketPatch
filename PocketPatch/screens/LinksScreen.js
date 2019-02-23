@@ -19,21 +19,42 @@ import { WebBrowser } from "expo";
 import { MonoText } from "../components/StyledText";
 import bearImages from "../assets/images/bearImages";
 
+
+const EXHALE_THRESHOLD = 20
+const INHALE_THRESHOLD = 80
+const UPDATE_INTERVAL = 100
+
 export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { progress: 0, pressed: false, bearState: "angry", isRunning: 0 };
+    this.state = {
+      progress: 0,
+      pressed: false,
+      bearState: "angry",
+      isRunning: 0,
+
+      breathing: false,
+      exhaling: true,
+      numBreaths: 0,
+      successInhale: false,
+      successExhale: true
+    };
     this.breatheValue = new Animated.Value(0);
 
+    this.update = this.update.bind(this)
     setInterval(
       () => {
-          this.setState(previousState => ({
-            progress: this.state.progress + 0.05*this.state.isRunning
-              }))
-            },
-          1000
-        );
-}
+        this.setState(previousState => ({
+          progress: this.state.progress + 0.05 * this.state.isRunning
+        }))
+      },
+      1000
+    );
+  }
+
+  componentDidMount() {
+    this.update()
+  }
 
   _panResponder = PanResponder.create({
     onStartShouldSetPanResponder: (evt, gestureState) => true,
@@ -46,16 +67,53 @@ export default class LinksScreen extends React.Component {
       this.exhale();
     }
   });
+
+  update() {
+    let breatheValue = this.breatheValue.__getValue()
+    if (breatheValue) {
+      if (this.state.exhaling && !this.state.successExhale && breatheValue <= EXHALE_THRESHOLD) {
+        let { numBreaths } = this.state
+        if (this.state.successInhale) {
+          numBreaths += 1
+        }
+        this.setState({
+          successInhale: false,
+          successExhale: true,
+          numBreaths
+        }, () => {
+          setTimeout(this.update, UPDATE_INTERVAL)
+        })
+      } else if (this.state.breathing && !this.state.successInhale && breatheValue >= INHALE_THRESHOLD) {
+        let successInhale = false
+        if (this.state.successExhale) {
+          successInhale = true
+        }
+        this.setState({
+          successInhale,
+          successExhale: false
+        }, () => {
+          setTimeout(this.update, UPDATE_INTERVAL)
+        })
+      } else {
+        setTimeout(this.update, UPDATE_INTERVAL)
+      }
+    } else {
+      setTimeout(this.update, UPDATE_INTERVAL)
+    }
+  }
+
   breathe() {
+    this.setState({ isRunning: 1, breathing: true, exhaling: false })
     Animated.timing(this.breatheValue, {
       toValue: 100,
       duration: 2000,
       easing: Easing.linear
     }).start();
-    this.setState({isRunning: 1})
   }
 
   exhale() {
+    this.setState({ breathing: false, exhaling: true })
+
     Animated.timing(this.breatheValue, {
       toValue: 0,
       duration: 2000,
@@ -96,9 +154,12 @@ export default class LinksScreen extends React.Component {
           style={{
             flexDirection: "column",
             justifyContent: "space-evenly",
-            flex: 1
+            flex: 1,
+            alignItems: "center"
           }}
         >
+          <Text textAlign="center">Number of Breaths: {this.state.numBreaths}</Text>
+
           <View style={styles.progressBarContainer}>
             <Icon
               style={styles.sadFace}
