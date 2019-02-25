@@ -32,7 +32,7 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0,
+      progress: .9,
       pressed: false,
       bearState: "angry",
       isRunning: 0,
@@ -75,6 +75,11 @@ export default class LinksScreen extends React.Component {
   });
 
   update() {
+    if (this.state.progress >= 1) {
+      // lol this runs forever
+      this.props.navigation.navigate('Settings')
+    }
+
     let breatheValue = this.breatheValue.__getValue()
     if (breatheValue) {
       if (this.state.exhaling && breatheValue <= EXHALE_THRESHOLD) {
@@ -116,7 +121,7 @@ export default class LinksScreen extends React.Component {
     } else {
       setTimeout(this.update, UPDATE_INTERVAL)
     }
-  }
+  }                                                                                                                     
 
   breathe() {
     this.setState({ isRunning: 1, breathing: true, exhaling: false })
@@ -293,7 +298,7 @@ const styles = StyleSheet.create({
   bearContainer: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 4,
+    flex: 6 ,
   },
   developmentModeText: {
     marginBottom: 20,
