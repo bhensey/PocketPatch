@@ -41,7 +41,9 @@ export default class LinksScreen extends React.Component {
       exhaling: true,
       numBreaths: 0,
       successInhale: false,
-      successExhale: true
+      successExhale: true,
+
+      bubbleText: "Breathe In"
     };
     this.breatheValue = new Animated.Value(0);
 
@@ -75,6 +77,16 @@ export default class LinksScreen extends React.Component {
   update() {
     let breatheValue = this.breatheValue.__getValue()
     if (breatheValue) {
+      if (this.state.exhaling && breatheValue <= EXHALE_THRESHOLD) {
+        this.setState({
+          bubbleText: "Breathe In"
+        })
+      } else if (this.state.breathing && breatheValue >= INHALE_THRESHOLD) {
+        this.setState({
+          bubbleText: "Breathe Out"
+        })
+      }
+
       if (this.state.exhaling && !this.state.successExhale && breatheValue <= EXHALE_THRESHOLD) {
         let { numBreaths } = this.state
         if (this.state.successInhale) {
@@ -162,8 +174,6 @@ export default class LinksScreen extends React.Component {
             alignItems: "center"
           }}
         >
-          
-
           <View style={styles.progressBarContainer}>
             <Icon
               style={styles.sadFace}
@@ -240,6 +250,7 @@ export default class LinksScreen extends React.Component {
           </View>
           <View style={{ flex: 1 }} />
           <Text textAlign="center">Number of Breaths: {this.state.numBreaths}</Text>
+          <Text textAlign="center">{this.state.bubbleText}</Text>
         </View>
       </ImageBackground>
     );
