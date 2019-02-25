@@ -25,6 +25,10 @@ const INHALE_THRESHOLD = 80
 const UPDATE_INTERVAL = 100
 
 export default class LinksScreen extends React.Component {
+
+  static navigationOptions = {
+    header: null
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -106,7 +110,7 @@ export default class LinksScreen extends React.Component {
     this.setState({ isRunning: 1, breathing: true, exhaling: false })
     Animated.timing(this.breatheValue, {
       toValue: 100,
-      duration: 2000,
+      duration: 1000,
       easing: Easing.linear
     }).start();
   }
@@ -116,7 +120,7 @@ export default class LinksScreen extends React.Component {
 
     Animated.timing(this.breatheValue, {
       toValue: 0,
-      duration: 2000,
+      duration: 1000,
       easing: Easing.linear
     }).start();
   }
@@ -158,7 +162,7 @@ export default class LinksScreen extends React.Component {
             alignItems: "center"
           }}
         >
-          <Text textAlign="center">Number of Breaths: {this.state.numBreaths}</Text>
+          
 
           <View style={styles.progressBarContainer}>
             <Icon
@@ -235,6 +239,7 @@ export default class LinksScreen extends React.Component {
             />
           </View>
           <View style={{ flex: 1 }} />
+          <Text textAlign="center">Number of Breaths: {this.state.numBreaths}</Text>
         </View>
       </ImageBackground>
     );
@@ -256,7 +261,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    flex: 1
+    flex: 1,
   },
 
   omyMessage: {
@@ -277,7 +282,7 @@ const styles = StyleSheet.create({
   bearContainer: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 5
+    flex: 4,
   },
   developmentModeText: {
     marginBottom: 20,
