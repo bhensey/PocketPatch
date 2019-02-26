@@ -76,8 +76,8 @@ export default class LinksScreen extends React.Component {
 
   update() {
     if (this.state.progress >= 1) {
-      // lol this runs forever
       this.props.navigation.navigate('Settings')
+      this.setState(this.state.progress = 0)
     }
 
     let breatheValue = this.breatheValue.__getValue()
