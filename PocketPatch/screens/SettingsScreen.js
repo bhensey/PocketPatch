@@ -3,6 +3,7 @@ import {View, Text, StyleSheet} from 'react-native'
 import Confetti from 'react-native-confetti';
 import { ExpoConfigView } from '@expo/samples';
 
+
 export default class SettingsScreen extends React.Component {
 
   componentDidMount() {
@@ -19,7 +20,7 @@ export default class SettingsScreen extends React.Component {
     return (
     <View style={styles.container}>
       <Confetti ref={(node) => this._confettiView = node} confettiCount={500}/>
-      <Text> Nice job </Text>
+
     </View>
     )
   }
