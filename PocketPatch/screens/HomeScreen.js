@@ -12,123 +12,66 @@ import {
   PanResponder
 } from "react-native";
 import { WebBrowser } from "expo";
+import {Button} from 'react-native-elements';
 
 import { MonoText } from "../components/StyledText";
+
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { pressed: false };
-    this.breatheValue = new Animated.Value(0);
+
   }
 
   static navigationOptions = {
     header: null
   };
 
-  _panResponder = PanResponder.create({
-    onStartShouldSetPanResponder: (evt, gestureState) => true,
-    onPanResponderGrant: (evt, gestureState) => {
-      this.setState({ pressed: true });
-      this.breathe();
-    },
-    onPanResponderRelease: (evt, gestureState) => {
-      this.setState({ pressed: false });
-      this.exhale();
-    }
-  });
-
-  breathe() {
-    /**
-     * TODO
-     * change duration to dynamic based on speed
-     */
-    Animated.timing(this.breatheValue, {
-      toValue: 100,
-      duration: 4000,
-      easing: Easing.linear
-    }).start();
-  }
-
-  exhale() {
-    /**
-     * TODO
-     * change duration to dynamic based on speed
-     * change duration to be based on breathe time
-     */
-    Animated.timing(this.breatheValue, {
-      toValue: 0,
-      duration: 4000,
-      easing: Easing.linear
-    }).start();
-  }
-
+ 
   render() {
-    const breathe = this.breatheValue.interpolate({
-      inputRange: [0, 100],
-      outputRange: [1, 1.5]
-    });
 
     return (
-      <View
-        style={this.state.pressed ? styles.containerPressed : styles.container}
-        {...this._panResponder.panHandlers}
-      >
-        <Animated.Image
-          style={{
-            transform: [{ scale: breathe }],
-            flex: 1,
-            width: "75%",
-            height: undefined
-          }}
-          resizeMode="contain"
-          source={require("../assets/images/angry/small.png")}
-        />
+      <View style={{flex: 1}}>
+        <View style={styles.padding}>
+          <Text> updawg?</Text>
+        </View>
+        <View style={styles.container}>
+          <Button 
+            buttonStyle= {{width: 150, backgroundColor: 'red'}}
+            title="Angry"
+            onPress={() => this.props.navigation.navigate('Links')}
+           > 
+          </Button>
+          <Button 
+            buttonStyle= {{width: 150, backgroundColor: 'purple'}}
+            title="Sad"
+            onPress={() => this.props.navigation.navigate('Links')}
+           > 
+          </Button>
+          <Button 
+            buttonStyle= {{width: 150, backgroundColor: 'green'}}
+            title="Excited"
+            onPress={() => this.props.navigation.navigate('Links')}
+           > 
+          </Button>
+        </View>
+        <View style={styles.padding}>
+        </View>
       </View>
     );
   }
-
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use
-          useful development tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
-
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/development-mode"
-    );
-  };
-
-  _handleHelpPress = () => {
-    WebBrowser.openBrowserAsync(
-      "https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes"
-    );
-  };
 }
 
 const styles = StyleSheet.create({
+  padding : {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "flex-end"
+  },
   container: {
     alignItems: "center",
-    justifyContent: "center",
-    flex: 1,
+    justifyContent: "space-evenly",
+    flex: 9,
     backgroundColor: "#fff"
   },
   containerPressed: {

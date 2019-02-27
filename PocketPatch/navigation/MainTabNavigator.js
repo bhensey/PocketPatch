@@ -33,6 +33,7 @@ const LinksStack = createStackNavigator({
 });
 
 LinksStack.navigationOptions = {
+  header: null,
   tabBarLabel: "Links",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -57,7 +58,7 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  LinksStack,
   HomeStack,
+  LinksStack,
   SettingsStack
 });
