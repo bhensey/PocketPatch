@@ -34,7 +34,7 @@ export default class SettingsScreen extends React.Component {
         <Card containerStyle={styles.card} title="Way to go!">
           <View style={styles.cardContent}>
 
-            <Image style={{ width: 300, height: 300 }} source={require('../assets/images/start-end-images-compressed/lotus-min.png')} />
+            <Image style={{ width: 300, height: 300 }} source={require('../assets/images/start-end-images/Lotus-02.png')} />
             <Text>You've earned 10 breathing points!</Text>
           </View>
         </Card>

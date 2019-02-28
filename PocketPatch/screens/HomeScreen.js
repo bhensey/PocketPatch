@@ -35,19 +35,20 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={{flex: 1, backgroundColor: "#DDDDFF"}}>
         <View style={styles.container}>
+        <Image style={{height: 200, resizeMode: 'contain'}} source={require('../assets/images/start-end-images/logo-01.png')}/>
         <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate('Links')}>
           <View>
-            <Image style={{width: 250, height: 200}} source={require('../assets/images/start-end-images-compressed/ok-bear-min.png')} />
+            <Image style={{width: 250, height: 200, resizeMode: 'contain'}} source={require('../assets/images/start-end-images/OK-01-01.png')} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate('Links')}>
           <View>
-            <Image style={{width: 250, height: 200}} source={require('../assets/images/start-end-images-compressed/ok-bear-min.png')} />
+            <Image style={{width: 250, height: 200, resizeMode: 'contain'}} source={require('../assets/images/start-end-images/upset-02-02.png')} />
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.container} onPress={() => this.props.navigation.navigate('Links')}>
           <View>
-            <Image style={{width: 250, height: 200}} source={require('../assets/images/start-end-images-compressed/ok-bear-min.png')} />
+            <Image style={{width: 250, height: 200, resizeMode: 'contain'}} source={require('../assets/images/start-end-images/wound-up-03-03.png')} />
           </View>
         </TouchableOpacity>
           {/*<Button
