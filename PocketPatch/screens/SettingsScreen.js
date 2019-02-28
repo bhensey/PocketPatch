@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native'
+import {Button} from 'react-native-elements';
 import Confetti from 'react-native-confetti';
 import { ExpoConfigView } from '@expo/samples';
 
@@ -12,8 +13,18 @@ export default class SettingsScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    header: null
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Button 
+          title="Back to Home" 
+          type="clear"
+          onPress={() => navigation.popToTop()}
+
+        /> 
+
+      )
+    }
   };
 
   render() {
