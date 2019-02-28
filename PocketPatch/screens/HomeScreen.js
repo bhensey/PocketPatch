@@ -37,7 +37,7 @@ export default class HomeScreen extends React.Component {
               height: 200,
               resizeMode: "contain",
               marginTop: 100,
-              marginBottom: 80
+              marginBottom: 20
             }}
             source={require("../assets/images/start-end-images/logo-01.png")}
           />
