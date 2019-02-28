@@ -21,7 +21,7 @@
   "devDependencies": {
     "babel-preset-expo": "^5.0.0",
     "jest-expo": "^32.0.0",
-    "react-native-elements": "^1.0.0",
+    "react-native-elements": "^1.1.0",
     "react-native-progress": "^3.5.0"
   },
   "private": true
