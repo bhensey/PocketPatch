@@ -34,7 +34,7 @@ export default class LinksScreen extends React.Component {
       pressed: false,
       bearState: "angry",
       isRunning: 0,
-
+      duration: 1000,
       breathing: false,
       exhaling: true,
       numBreaths: 0,
@@ -92,8 +92,15 @@ export default class LinksScreen extends React.Component {
       ) {
         let { numBreaths } = this.state;
         if (this.state.successInhale) {
-          numBreaths += 1;
           this.setState({ progress: this.state.progress + 0.1 });
+          numBreaths += 1;
+          if (this.state.progress < 0.33) {
+            this.setState({ duration: 1000 });
+          } else if (this.state.progress < 0.66) {
+            this.setState({ duration: 1500 });
+          } else {
+            this.setState({ duration: 2000 });
+          }
         }
         this.setState(
           {
@@ -135,7 +142,7 @@ export default class LinksScreen extends React.Component {
     this.setState({ isRunning: 1, breathing: true, exhaling: false });
     Animated.timing(this.breatheValue, {
       toValue: 100,
-      duration: 1000,
+      duration: this.state.duration,
       easing: Easing.linear
     }).start();
   }
@@ -145,7 +152,7 @@ export default class LinksScreen extends React.Component {
 
     Animated.timing(this.breatheValue, {
       toValue: 0,
-      duration: 1000,
+      duration: this.state.duration,
       easing: Easing.linear
     }).start();
   }
