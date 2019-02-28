@@ -19,16 +19,14 @@ import { WebBrowser } from "expo";
 import { MonoText } from "../components/StyledText";
 import bearImages from "../assets/images/bearImages";
 
-
-const EXHALE_THRESHOLD = 20
-const INHALE_THRESHOLD = 80
-const UPDATE_INTERVAL = 100
+const EXHALE_THRESHOLD = 20;
+const INHALE_THRESHOLD = 80;
+const UPDATE_INTERVAL = 100;
 
 export default class LinksScreen extends React.Component {
-
   static navigationOptions = {
     header: null
-  }
+  };
   constructor(props) {
     super(props);
     this.state = {
@@ -49,19 +47,11 @@ export default class LinksScreen extends React.Component {
 
     this.timeout;
 
-    this.update = this.update.bind(this)
-    setInterval(
-      () => {
-        this.setState(previousState => ({
-          progress: this.state.progress + 0.05 * this.state.isRunning
-        }))
-      },
-      1000
-    );
+    this.update = this.update.bind(this);
   }
 
   componentDidMount() {
-    this.update()
+    this.update();
   }
 
   _panResponder = PanResponder.create({
@@ -78,56 +68,71 @@ export default class LinksScreen extends React.Component {
 
   update() {
     if (this.state.progress >= 1) {
-      this.props.navigation.navigate('Settings')
-      this.setState({progress: 0})
-      clearTimeout(this.timeout)
+      this.props.navigation.navigate("Settings");
+      this.setState({ progress: 0 });
+      clearTimeout(this.timeout);
     }
 
-    let breatheValue = this.breatheValue.__getValue()
+    let breatheValue = this.breatheValue.__getValue();
     if (breatheValue) {
       if (this.state.exhaling && breatheValue <= EXHALE_THRESHOLD) {
         this.setState({
           bubbleText: "Breathe In"
-        })
+        });
       } else if (this.state.breathing && breatheValue >= INHALE_THRESHOLD) {
         this.setState({
           bubbleText: "Breathe Out"
-        })
+        });
       }
 
-      if (this.state.exhaling && !this.state.successExhale && breatheValue <= EXHALE_THRESHOLD) {
-        let { numBreaths } = this.state
+      if (
+        this.state.exhaling &&
+        !this.state.successExhale &&
+        breatheValue <= EXHALE_THRESHOLD
+      ) {
+        let { numBreaths } = this.state;
         if (this.state.successInhale) {
-          numBreaths += 1
+          numBreaths += 1;
+          this.setState({ progress: this.state.progress + 0.1 });
         }
-        this.setState({
-          successInhale: false,
-          successExhale: true,
-          numBreaths
-        }, () => {
-          this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
-        })
-      } else if (this.state.breathing && !this.state.successInhale && breatheValue >= INHALE_THRESHOLD) {
-        let successInhale = false
+        this.setState(
+          {
+            successInhale: false,
+            successExhale: true,
+            numBreaths
+          },
+          () => {
+            this.timeout = setTimeout(this.update, UPDATE_INTERVAL);
+          }
+        );
+      } else if (
+        this.state.breathing &&
+        !this.state.successInhale &&
+        breatheValue >= INHALE_THRESHOLD
+      ) {
+        let successInhale = false;
         if (this.state.successExhale) {
-          successInhale = true
+          successInhale = true;
         }
-        this.setState({
-          successInhale,
-          successExhale: false
-        }, () => {
-          this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
-        })
+        this.setState(
+          {
+            successInhale,
+            successExhale: false
+          },
+          () => {
+            this.timeout = setTimeout(this.update, UPDATE_INTERVAL);
+          }
+        );
       } else {
-        this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
+        this.timeout = setTimeout(this.update, UPDATE_INTERVAL);
       }
     } else {
-      this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
+      this.timeout = setTimeout(this.update, UPDATE_INTERVAL);
     }
   }
 
   breathe() {
-    this.setState({ isRunning: 1, breathing: true, exhaling: false })
+    this.setState({ isRunning: 1, breathing: true, exhaling: false });
     Animated.timing(this.breatheValue, {
       toValue: 100,
       duration: 1000,
@@ -136,7 +141,7 @@ export default class LinksScreen extends React.Component {
   }
 
   exhale() {
-    this.setState({ breathing: false, exhaling: true })
+    this.setState({ breathing: false, exhaling: true });
 
     Animated.timing(this.breatheValue, {
       toValue: 0,
@@ -257,7 +262,9 @@ export default class LinksScreen extends React.Component {
             />
           </View>
           <View style={{ flex: 1 }} />
-          <Text textAlign="center">Number of Breaths: {this.state.numBreaths}</Text>
+          <Text textAlign="center">
+            Number of Breaths: {this.state.numBreaths}
+          </Text>
           <Text textAlign="center">{this.state.bubbleText}</Text>
         </View>
       </ImageBackground>
@@ -280,7 +287,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
-    flex: 1,
+    flex: 1
   },
 
   omyMessage: {
@@ -301,7 +308,7 @@ const styles = StyleSheet.create({
   bearContainer: {
     alignItems: "center",
     justifyContent: "center",
-    flex: 6 ,
+    flex: 6
   },
   developmentModeText: {
     marginBottom: 20,
