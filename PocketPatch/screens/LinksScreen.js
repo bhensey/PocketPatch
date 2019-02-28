@@ -47,6 +47,8 @@ export default class LinksScreen extends React.Component {
     };
     this.breatheValue = new Animated.Value(0);
 
+    this.timeout;
+
     this.update = this.update.bind(this)
     setInterval(
       () => {
@@ -78,6 +80,7 @@ export default class LinksScreen extends React.Component {
     if (this.state.progress >= 1) {
       this.props.navigation.navigate('Settings')
       this.setState({progress: 0})
+      clearTimeout(this.timeout)
     }
 
     let breatheValue = this.breatheValue.__getValue()
@@ -102,7 +105,7 @@ export default class LinksScreen extends React.Component {
           successExhale: true,
           numBreaths
         }, () => {
-          setTimeout(this.update, UPDATE_INTERVAL)
+          this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
         })
       } else if (this.state.breathing && !this.state.successInhale && breatheValue >= INHALE_THRESHOLD) {
         let successInhale = false
@@ -113,13 +116,13 @@ export default class LinksScreen extends React.Component {
           successInhale,
           successExhale: false
         }, () => {
-          setTimeout(this.update, UPDATE_INTERVAL)
+          this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
         })
       } else {
-        setTimeout(this.update, UPDATE_INTERVAL)
+        this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
       }
     } else {
-      setTimeout(this.update, UPDATE_INTERVAL)
+      this.timeout = setTimeout(this.update, UPDATE_INTERVAL)
     }
   }
 
