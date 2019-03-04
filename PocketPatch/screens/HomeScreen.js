@@ -22,21 +22,22 @@ export default class HomeScreen extends React.Component {
     super(props);
   }
 
-  static navigationOptions = {
-    header: null
-  };
+  static navigationOptions = ({navigation}) => { 
+    return {
+    headerRight: (
+      <Button title={"Hello, " + navigation.getParam("name", "")}
+                type="clear"
+                titleStyle={{color: '#ccccff', fontWeight: 'bold', paddingRight: 20}}/>)
+  }};
 
   render() {
-    console.log("render");
+    console.log("render"); 
+    const name = this.props.navigation.getParam("name", "");
+    console.log(name);
 
     return (
       <View style={{ flex: 1, backgroundColor: "#DDDDFF", paddingBottom: 50 }}>
         <View style={styles.container}>
-          <Button title='Go Back' 
-                buttonStyle={{backgroundColor: '#fff3cf'}} 
-                titleStyle={{color: '#ccccff', fontWeight: 'bold'}}
-                onPress={() => this.props.navigation.navigate("UserInput")}
-          />
           <Image
             style={{
               height: 200,
