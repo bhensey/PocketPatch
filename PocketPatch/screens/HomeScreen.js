@@ -12,14 +12,26 @@ import {
   PanResponder,
   TouchableHighlight
 } from "react-native";
-import { WebBrowser } from "expo";
+import { WebBrowser, Audio } from "expo";
 import { Button } from "react-native-elements";
-
 import { MonoText } from "../components/StyledText";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.playAudio();
+  }
+
+  async playAudio() {
+    const soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(
+        require("../assets/audio/background-music.wav")
+      );
+      await soundObject.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static navigationOptions = {
@@ -27,15 +39,14 @@ export default class HomeScreen extends React.Component {
   };
 
   render() {
-    console.log("render");
-
     return (
       <View style={{ flex: 1, backgroundColor: "#DDDDFF", paddingBottom: 50 }}>
         <View style={styles.container}>
-          <Button title='Go Back' 
-                buttonStyle={{backgroundColor: '#fff3cf'}} 
-                titleStyle={{color: '#ccccff', fontWeight: 'bold'}}
-                onPress={() => this.props.navigation.navigate("UserInput")}
+          <Button
+            title="Go Back"
+            buttonStyle={{ backgroundColor: "#fff3cf" }}
+            titleStyle={{ color: "#ccccff", fontWeight: "bold" }}
+            onPress={() => this.props.navigation.navigate("UserInput")}
           />
           <Image
             style={{
