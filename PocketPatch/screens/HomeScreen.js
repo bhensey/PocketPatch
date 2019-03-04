@@ -32,6 +32,11 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={{ flex: 1, backgroundColor: "#DDDDFF", paddingBottom: 50 }}>
         <View style={styles.container}>
+          <Button title='Go Back' 
+                buttonStyle={{backgroundColor: '#fff3cf'}} 
+                titleStyle={{color: '#ccccff', fontWeight: 'bold'}}
+                onPress={() => this.props.navigation.navigate("UserInput")}
+          />
           <Image
             style={{
               height: 200,
