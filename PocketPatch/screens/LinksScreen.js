@@ -219,6 +219,12 @@ export default class LinksScreen extends React.Component {
             style={styles.bearContainer}
             {...this._panResponder.panHandlers}
           >
+          <View
+            style={styles.bubbleContainer}
+            >
+            <Image style={this.state.bubbleText === "Breathe In" ? styles.bubble : styles.invisBubble} source={require('../assets/images/misc/breatheinbubble.png')}/>
+            <Image style={this.state.bubbleText !== "Breathe In" ? styles.bubble : styles.invisBubble} source={require('../assets/images/misc/breatheoutbubble.png') }/>
+            </View>
             <Animated.Image
               style={{
                 transform: [{ scale: breathe }],
@@ -280,6 +286,21 @@ export default class LinksScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  bubbleContainer: {
+    position: "absolute", top: 40, flex: 1, flexDirection: "row"
+  },
+  bubble: {
+    flex: 1,
+    resizeMode: "contain",
+    height: 100,
+    opacity: 1
+  },
+  invisBubble: {
+    flex: 1,
+    resizeMode: "contain",
+    height: 100,
+    opacity: 0
+  },
   container: {
     flex: 1,
     paddingTop: 15,
