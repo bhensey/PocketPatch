@@ -298,11 +298,6 @@ export default class LinksScreen extends React.Component {
               source={bearImages[this.state.bearState].limb}
             />
           </View>
-          <View style={{ flex: 1 }} />
-          <Text textAlign="center">
-            Number of Breaths: {this.state.numBreaths}
-          </Text>
-          <Text textAlign="center">{this.state.bubbleText}</Text>
         </View>
       </ImageBackground>
     );
@@ -312,7 +307,7 @@ export default class LinksScreen extends React.Component {
 const styles = StyleSheet.create({
   bubbleContainer: {
     position: "absolute",
-    top: 40,
+    top: 60,
     flex: 1,
     flexDirection: "row"
   },

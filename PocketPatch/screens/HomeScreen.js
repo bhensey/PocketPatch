@@ -35,7 +35,7 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  static navigationOptions = ({navigation}) => { 
+  static navigationOptions = ({navigation}) => {
     return {
     headerRight: (
       <Button title={"Hello, " + navigation.getParam("name", "")}
@@ -51,7 +51,7 @@ export default class HomeScreen extends React.Component {
             style={{
               height: 200,
               resizeMode: "contain",
-              marginTop: 100,
+              marginTop: 50,
               marginBottom: 20
             }}
             source={require("../assets/images/start-end-images/logo-01.png")}
