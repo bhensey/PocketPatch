@@ -35,20 +35,18 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  static navigationOptions = {
-    header: null
-  };
+  static navigationOptions = ({navigation}) => { 
+    return {
+    headerRight: (
+      <Button title={"Hello, " + navigation.getParam("name", "")}
+                type="clear"
+                titleStyle={{color: '#ccccff', fontWeight: 'bold', paddingRight: 20}}/>)
+  }};
 
   render() {
     return (
       <View style={{ flex: 1, backgroundColor: "#DDDDFF", paddingBottom: 50 }}>
         <View style={styles.container}>
-          <Button
-            title="Go Back"
-            buttonStyle={{ backgroundColor: "#fff3cf" }}
-            titleStyle={{ color: "#ccccff", fontWeight: "bold" }}
-            onPress={() => this.props.navigation.navigate("UserInput")}
-          />
           <Image
             style={{
               height: 200,
@@ -91,24 +89,6 @@ export default class HomeScreen extends React.Component {
               />
             </View>
           </TouchableOpacity>
-          {/*<Button
-            buttonStyle= {{width: 150, backgroundColor: 'red'}}
-            title="Angry"
-            onPress={() => this.props.navigation.navigate('Links')}
-           >
-          </Button>
-          <Button
-            buttonStyle= {{width: 150, backgroundColor: 'purple'}}
-            title="Sad"
-            onPress={() => this.props.navigation.navigate('Links')}
-           >
-          </Button>
-          <Button
-            buttonStyle= {{width: 150, backgroundColor: 'green'}}
-            title="Excited"
-            onPress={() => this.props.navigation.navigate('Links')}
-           >
-          </Button>*/}
         </View>
       </View>
     );

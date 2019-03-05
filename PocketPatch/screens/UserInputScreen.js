@@ -54,7 +54,7 @@ export default class UserInputScreen extends React.Component {
                 <Button title='GO' 
                 buttonStyle={{backgroundColor: '#fff3cf'}} 
                 titleStyle={{color: '#ccccff', fontWeight: 'bold'}}
-                onPress={() => this.props.navigation.navigate("Home")}
+                onPress={() => this.props.navigation.navigate("Home", {name:this.state.name})}
                 disabled={this.state.isDisabled}/>
             </View>
         </View>
