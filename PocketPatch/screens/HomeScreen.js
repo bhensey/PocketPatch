@@ -12,14 +12,27 @@ import {
   PanResponder,
   TouchableHighlight
 } from "react-native";
-import { WebBrowser } from "expo";
+import { WebBrowser, Audio } from "expo";
 import { Button } from "react-native-elements";
-
 import { MonoText } from "../components/StyledText";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.playAudio();
+  }
+
+  async playAudio() {
+    try {
+      console.log("backgroundMusic On");
+      const soundObject = new Audio.Sound();
+      await soundObject.loadAsync(
+        require("../assets/audio/background-music.wav")
+      );
+      await soundObject.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   static navigationOptions = ({navigation}) => { 
@@ -31,10 +44,6 @@ export default class HomeScreen extends React.Component {
   }};
 
   render() {
-    console.log("render"); 
-    const name = this.props.navigation.getParam("name", "");
-    console.log(name);
-
     return (
       <View style={{ flex: 1, backgroundColor: "#DDDDFF", paddingBottom: 50 }}>
         <View style={styles.container}>
@@ -80,24 +89,6 @@ export default class HomeScreen extends React.Component {
               />
             </View>
           </TouchableOpacity>
-          {/*<Button
-            buttonStyle= {{width: 150, backgroundColor: 'red'}}
-            title="Angry"
-            onPress={() => this.props.navigation.navigate('Links')}
-           >
-          </Button>
-          <Button
-            buttonStyle= {{width: 150, backgroundColor: 'purple'}}
-            title="Sad"
-            onPress={() => this.props.navigation.navigate('Links')}
-           >
-          </Button>
-          <Button
-            buttonStyle= {{width: 150, backgroundColor: 'green'}}
-            title="Excited"
-            onPress={() => this.props.navigation.navigate('Links')}
-           >
-          </Button>*/}
         </View>
       </View>
     );

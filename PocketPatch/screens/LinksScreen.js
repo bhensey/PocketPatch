@@ -15,7 +15,7 @@ import {
 import { ExpoLinksView } from "@expo/samples";
 import * as Progress from "react-native-progress";
 import { Icon } from "react-native-elements";
-import { WebBrowser } from "expo";
+import { WebBrowser, Audio } from "expo";
 import { MonoText } from "../components/StyledText";
 import bearImages from "../assets/images/bearImages";
 
@@ -138,7 +138,18 @@ export default class LinksScreen extends React.Component {
     }
   }
 
+  async playAudio(file) {
+    const soundObject = new Audio.Sound();
+    try {
+      await soundObject.loadAsync(file);
+      await soundObject.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   breathe() {
+    this.playAudio(require("../assets/audio/ocean-inhale-2s.wav"));
     this.setState({ isRunning: 1, breathing: true, exhaling: false });
     Animated.timing(this.breatheValue, {
       toValue: 100,
@@ -148,6 +159,7 @@ export default class LinksScreen extends React.Component {
   }
 
   exhale() {
+    this.playAudio(require("../assets/audio/ocean-exhale-2s.wav"));
     this.setState({ breathing: false, exhaling: true });
 
     Animated.timing(this.breatheValue, {
@@ -219,11 +231,23 @@ export default class LinksScreen extends React.Component {
             style={styles.bearContainer}
             {...this._panResponder.panHandlers}
           >
-          <View
-            style={styles.bubbleContainer}
-            >
-            <Image style={this.state.bubbleText === "Breathe In" ? styles.bubble : styles.invisBubble} source={require('../assets/images/misc/breatheinbubble.png')}/>
-            <Image style={this.state.bubbleText !== "Breathe In" ? styles.bubble : styles.invisBubble} source={require('../assets/images/misc/breatheoutbubble.png') }/>
+            <View style={styles.bubbleContainer}>
+              <Image
+                style={
+                  this.state.bubbleText === "Breathe In"
+                    ? styles.bubble
+                    : styles.invisBubble
+                }
+                source={require("../assets/images/misc/breatheinbubble.png")}
+              />
+              <Image
+                style={
+                  this.state.bubbleText !== "Breathe In"
+                    ? styles.bubble
+                    : styles.invisBubble
+                }
+                source={require("../assets/images/misc/breatheoutbubble.png")}
+              />
             </View>
             <Animated.Image
               style={{
@@ -287,7 +311,10 @@ export default class LinksScreen extends React.Component {
 
 const styles = StyleSheet.create({
   bubbleContainer: {
-    position: "absolute", top: 40, flex: 1, flexDirection: "row"
+    position: "absolute",
+    top: 40,
+    flex: 1,
+    flexDirection: "row"
   },
   bubble: {
     flex: 1,
