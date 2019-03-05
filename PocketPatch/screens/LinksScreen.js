@@ -138,24 +138,10 @@ export default class LinksScreen extends React.Component {
     }
   }
 
-  async playBreath() {
+  async playAudio(file) {
     const soundObject = new Audio.Sound();
     try {
-      await soundObject.loadAsync(
-        require("../assets/audio/ocean-inhale-2s.wav")
-      );
-      await soundObject.playAsync();
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  async playExhale() {
-    const soundObject = new Audio.Sound();
-    try {
-      await soundObject.loadAsync(
-        require("../assets/audio/ocean-exhale-2s.wav")
-      );
+      await soundObject.loadAsync(file);
       await soundObject.playAsync();
     } catch (error) {
       console.log(error);
@@ -163,7 +149,7 @@ export default class LinksScreen extends React.Component {
   }
 
   breathe() {
-    this.playBreath();
+    this.playAudio(require("../assets/audio/ocean-inhale-2s.wav"));
     this.setState({ isRunning: 1, breathing: true, exhaling: false });
     Animated.timing(this.breatheValue, {
       toValue: 100,
@@ -173,7 +159,7 @@ export default class LinksScreen extends React.Component {
   }
 
   exhale() {
-    this.playExhale();
+    this.playAudio(require("../assets/audio/ocean-exhale-2s.wav"));
     this.setState({ breathing: false, exhaling: true });
 
     Animated.timing(this.breatheValue, {

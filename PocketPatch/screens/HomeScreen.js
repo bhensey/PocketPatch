@@ -23,8 +23,9 @@ export default class HomeScreen extends React.Component {
   }
 
   async playAudio() {
-    const soundObject = new Audio.Sound();
     try {
+      console.log("backgroundMusic On");
+      const soundObject = new Audio.Sound();
       await soundObject.loadAsync(
         require("../assets/audio/background-music.wav")
       );
