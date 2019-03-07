@@ -38,7 +38,7 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
     headerRight: (
-      <Button title={"Hello, " + navigation.getParam("name", "")}
+      <Button onPress={()=>navigation.navigate("History", {name:navigation.getParam("name", "")})} title={"Hello, " + navigation.getParam("name", "")}
                 type="clear"
                 titleStyle={{color: '#ccccff', fontWeight: 'bold', paddingRight: 20}}/>)
   }};
