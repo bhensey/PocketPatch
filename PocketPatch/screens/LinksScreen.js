@@ -30,7 +30,7 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0,
+      progress: 0.9,
       pressed: false,
       bearState: "angry",
       isRunning: 0,
@@ -81,8 +81,13 @@ export default class LinksScreen extends React.Component {
     }
   });
 
-  update() {
+  async update() {
     if (this.state.progress >= 1) {
+      try{
+        await this.soundObject.unloadAsync();
+      } catch (error) {
+        console.log(error);
+      }
       this.props.navigation.navigate("PostBreathing");
       this.setState({ progress: 0 });
       clearTimeout(this.timeout);
