@@ -19,20 +19,6 @@ import { MonoText } from "../components/StyledText";
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.playAudio();
-  }
-
-  async playAudio() {
-    try {
-      console.log("backgroundMusic On");
-      const soundObject = new Audio.Sound();
-      await soundObject.loadAsync(
-        require("../assets/audio/background-music.wav")
-      );
-      await soundObject.playAsync();
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   static navigationOptions = ({navigation}) => {

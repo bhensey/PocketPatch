@@ -48,10 +48,25 @@ export default class LinksScreen extends React.Component {
     this.timeout;
 
     this.update = this.update.bind(this);
+    this.soundObject = new Audio.Sound();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.update();
+    try {
+      await this.soundObject.loadAsync(require("../assets/audio/background-music.wav"));
+      await this.soundObject.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async componentWillUnmount(){
+    try{
+      await this.soundObject.unloadAsync();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   _panResponder = PanResponder.create({
