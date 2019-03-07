@@ -34,7 +34,7 @@ export default class LinksScreen extends React.Component {
       pressed: false,
       bearState: "angry",
       isRunning: 0,
-      duration: 1000,
+      duration: this.props.navigation.state.params.timing[0],
       breathing: false,
       exhaling: true,
       numBreaths: 0,
@@ -110,11 +110,11 @@ export default class LinksScreen extends React.Component {
           this.setState({ progress: this.state.progress + 0.1 });
           numBreaths += 1;
           if (this.state.progress < 0.33) {
-            this.setState({ duration: 1000 });
+            this.setState({ duration: this.props.navigation.state.params.timing[0] });
           } else if (this.state.progress < 0.66) {
-            this.setState({ duration: 1500 });
+            this.setState({ duration: this.props.navigation.state.params.timing[1] });
           } else {
-            this.setState({ duration: 2000 });
+            this.setState({ duration: this.props.navigation.state.params.timing[2] });
           }
         }
         this.setState(

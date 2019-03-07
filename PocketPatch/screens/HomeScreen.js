@@ -44,7 +44,7 @@ export default class HomeScreen extends React.Component {
           />
           <TouchableOpacity
             style={styles.container}
-            onPress={() => this.props.navigation.navigate("Links")}
+            onPress={() => this.props.navigation.navigate("Links", {timing:[2000,2000,2000]})}
           >
             <View>
               <Image
@@ -55,7 +55,7 @@ export default class HomeScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => this.props.navigation.navigate("Links")}
+            onPress={() => this.props.navigation.navigate("Links", {timing:[1500,1750,2000]})}
           >
             <View>
               <Image
@@ -66,7 +66,7 @@ export default class HomeScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => this.props.navigation.navigate("Links")}
+            onPress={() => this.props.navigation.navigate("Links", {timing:[1000,1500,2000]})}
           >
             <View>
               <Image
