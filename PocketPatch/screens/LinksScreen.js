@@ -30,7 +30,7 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0.9,
+      progress: 0,
       pressed: false,
       bearState: "angry",
       isRunning: 0,
@@ -53,6 +53,7 @@ export default class LinksScreen extends React.Component {
 
   async componentDidMount() {
     this.update();
+    this.props.navigation.addListener('willBlur', () => this.stopAudio());
     try {
       await this.soundObject.loadAsync(require("../assets/audio/background-music.wav"));
       await this.soundObject.playAsync();
@@ -61,7 +62,7 @@ export default class LinksScreen extends React.Component {
     }
   }
 
-  async componentWillUnmount(){
+  async stopAudio(){
     try{
       await this.soundObject.unloadAsync();
     } catch (error) {
@@ -81,13 +82,8 @@ export default class LinksScreen extends React.Component {
     }
   });
 
-  async update() {
+  update() {
     if (this.state.progress >= 1) {
-      try{
-        await this.soundObject.unloadAsync();
-      } catch (error) {
-        console.log(error);
-      }
       this.props.navigation.navigate("PostBreathing");
       this.setState({ progress: 0 });
       clearTimeout(this.timeout);
