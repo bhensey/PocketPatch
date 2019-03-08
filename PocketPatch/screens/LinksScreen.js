@@ -30,7 +30,7 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: .9,
+      progress: 0,
       pressed: false,
       bearState: "angry",
       isRunning: 0,
