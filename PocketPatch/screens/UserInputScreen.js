@@ -49,7 +49,6 @@ export default class UserInputScreen extends React.Component {
             <View style={styles.input}>
                 <Input placeholder='Name' label="What's your name?" onChangeText={(text) => {this.setState({isDisabled: false}); this.setState({name: text})}}/>
             </View>
-            {/* flip isDisabled if name is deleted */}
             <View style={styles.button}>
                 <Button title='GO' 
                 buttonStyle={{backgroundColor: '#fff3cf'}} 
@@ -81,6 +80,7 @@ const styles = StyleSheet.create({
   input: {
       flex: 1,
       alignItems: 'flex-end',
-      flexDirection: 'row'
+      flexDirection: 'row',
+      width: '80%'
   }
 });

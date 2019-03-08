@@ -34,7 +34,7 @@ export default class LinksScreen extends React.Component {
       pressed: false,
       bearState: "angry",
       isRunning: 0,
-      duration: 1000,
+      duration: this.props.navigation.state.params.timing[0],
       breathing: false,
       exhaling: true,
       numBreaths: 0,
@@ -48,10 +48,26 @@ export default class LinksScreen extends React.Component {
     this.timeout;
 
     this.update = this.update.bind(this);
+    this.soundObject = new Audio.Sound();
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.update();
+    this.props.navigation.addListener('willBlur', () => this.stopAudio());
+    try {
+      await this.soundObject.loadAsync(require("../assets/audio/background-music.wav"));
+      await this.soundObject.playAsync();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async stopAudio(){
+    try{
+      await this.soundObject.unloadAsync();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   _panResponder = PanResponder.create({
@@ -95,11 +111,11 @@ export default class LinksScreen extends React.Component {
           this.setState({ progress: this.state.progress + 0.1 });
           numBreaths += 1;
           if (this.state.progress < 0.33) {
-            this.setState({ duration: 1000 });
+            this.setState({ duration: this.props.navigation.state.params.timing[0] });
           } else if (this.state.progress < 0.66) {
-            this.setState({ duration: 1500 });
+            this.setState({ duration: this.props.navigation.state.params.timing[1] });
           } else {
-            this.setState({ duration: 2000 });
+            this.setState({ duration: this.props.navigation.state.params.timing[2] });
           }
         }
         this.setState(
