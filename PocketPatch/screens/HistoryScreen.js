@@ -33,11 +33,9 @@ export default class HistoryScreen extends React.Component {
   };
 
   render() {
-    console.log("render");
-
     return (
         <View style={styles.container}>
-          <Text style={styles.title}>{this.props.navigation.getParam("name", "")}'s Mood</Text>
+          <Text style={styles.title}>{this.props.navigation.getParam("name", "")}'s Moods</Text>
           <HistoryTable></HistoryTable>
         </View>
     );
@@ -46,13 +44,15 @@ export default class HistoryScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 100,
+    paddingTop: 50,
     backgroundColor: "#DDDDFF",
-    flex: 1
+    flex: 1,
+    justifyContent: "center"
   },
   title: {
     color: '#000',
     fontWeight: 'bold',
+    textAlign: "center"
   },
   logo: {
       flex: 1,
