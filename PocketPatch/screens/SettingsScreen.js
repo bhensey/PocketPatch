@@ -9,6 +9,8 @@ export default class SettingsScreen extends React.Component {
     if (this._confettiView) {
       this._confettiView.startConfetti();
     }
+
+    setTimeout(() => this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")}), 2000)
   }
 
   static navigationOptions = ({ navigation }) => {

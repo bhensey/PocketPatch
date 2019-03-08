@@ -28,8 +28,17 @@ export default class HistoryScreen extends React.Component {
     };
   }
 
-  static navigationOptions = {
-    header: null
+
+  static navigationOptions = ({ navigation }) => {
+    return {
+      headerLeft: (
+        <Button
+          title="Back to Home"
+          type="clear"
+          onPress={() => navigation.popToTop()}
+        />
+      )
+    };
   };
 
   render() {
@@ -44,7 +53,7 @@ export default class HistoryScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
+    paddingTop: 30,
     backgroundColor: "#DDDDFF",
     flex: 1,
     justifyContent: "center"

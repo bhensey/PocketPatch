@@ -31,8 +31,6 @@ export default class UserInputScreen extends React.Component {
   };
 
   render() {
-    console.log("render");
-
     return (
         <View style={styles.container}>
             <View style={styles.logo}>

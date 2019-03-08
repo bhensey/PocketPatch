@@ -30,7 +30,7 @@ export default class LinksScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      progress: 0,
+      progress: .9,
       pressed: false,
       bearState: "angry",
       isRunning: 0,
@@ -84,7 +84,7 @@ export default class LinksScreen extends React.Component {
 
   update() {
     if (this.state.progress >= 1) {
-      this.props.navigation.navigate("PostBreathing");
+      this.props.navigation.navigate("PostBreathing", {name: this.props.navigation.state.params.name});
       this.setState({ progress: 0 });
       clearTimeout(this.timeout);
     }
