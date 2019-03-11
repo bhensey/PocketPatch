@@ -335,6 +335,7 @@ export default class LinksScreen extends React.Component {
               //resizeMode="contain"
               source={bearImages[this.state.bearState].limb}
             />
+            {!this.state.isRunning &&
             <Animated.Image
               style={{
                 bottom: fingerY,
@@ -347,7 +348,7 @@ export default class LinksScreen extends React.Component {
               }}
               //resizeMode="contain"
               source={require("../assets/images/misc/pointer_finger.png")}
-            />
+            />}
           </View>
         </View>
       </ImageBackground>
