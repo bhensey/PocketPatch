@@ -10,7 +10,11 @@ export default class SettingsScreen extends React.Component {
       this._confettiView.startConfetti();
     }
 
-    setTimeout(() => this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")}), 2000)
+    if (this.props.navigation.getParam("mood", "ok") == "ok"){
+      setTimeout(() => this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")}), 2000)
+    } else {
+      setTimeout(() => this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")}), 20000)
+    }
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -26,7 +30,9 @@ export default class SettingsScreen extends React.Component {
   };
 
   render() {
-    return (
+    const navProps = this.props.navigation;
+    if(this.props.navigation.getParam("mood", "ok") == "ok"){
+      return (
       <View style={[styles.container, { backgroundColor: "#ce95f4" }]}>
         <Confetti
           ref={node => (this._confettiView = node)}
@@ -44,7 +50,34 @@ export default class SettingsScreen extends React.Component {
           </View>
         </Card>
       </View>
-    );
+      )
+    }
+    else{
+      return(
+        <View style={[styles.container, { backgroundColor: "#DDDDFF" }]}> 
+          <Card containerStyle={styles.card} title="Do you want to try again?">
+          <View style={styles.cardContent}>
+            <Button 
+              style={styles.button}
+              title="Try Again!" 
+              onPress={() => this.props.navigation.navigate("Home", {name:this.props.navigation.getParam("name", "")})}
+              buttonStyle={{backgroundColor: '#fff3cf'}} 
+              titleStyle={{color: '#ccccff', fontWeight: 'bold'}}
+              width={50}
+             />
+            <Button 
+              style={styles.button}
+              title="Results" 
+              onPress={()=> this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")})}
+              buttonStyle={{backgroundColor: '#fff3cf'}} 
+              titleStyle={{color: '#ccccff', fontWeight: 'bold'}}
+              width={50}
+            />
+          </View>
+        </Card>
+        </View>
+        )
+    }
   }
 }
 
@@ -52,13 +85,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   cardContent: {
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
   card: {
     borderRadius: 10
+  },
+  button: {
+    width: 100,
+    paddingTop: 20
   }
 });

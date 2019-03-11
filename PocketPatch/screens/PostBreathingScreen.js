@@ -37,7 +37,7 @@ export default class PostBreathingScreen extends React.Component {
           </Text>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => this.props.navigation.navigate("Settings", {name: this.props.navigation.state.params.name})}
+            onPress={() => this.props.navigation.navigate("Settings", {name: this.props.navigation.state.params.name, mood: "ok"})}
           >
             <View>
               <Image
@@ -48,7 +48,7 @@ export default class PostBreathingScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => this.props.navigation.navigate("Settings", {name: this.props.navigation.state.params.name})}
+            onPress={() => this.props.navigation.navigate("Settings", {name: this.props.navigation.state.params.name, mood: "upset"})}
           >
             <View>
               <Image
@@ -59,7 +59,7 @@ export default class PostBreathingScreen extends React.Component {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.container}
-            onPress={() => this.props.navigation.navigate("Settings", {name: this.props.navigation.state.params.name})}
+            onPress={() => this.props.navigation.navigate("Settings", {name: this.props.navigation.state.params.name, mood: "wound-up"})}
           >
             <View>
               <Image
