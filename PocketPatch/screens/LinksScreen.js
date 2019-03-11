@@ -44,6 +44,8 @@ export default class LinksScreen extends React.Component {
       bubbleText: "Breathe In"
     };
     this.breatheValue = new Animated.Value(0);
+    this.fingerValue = new Animated.Value(0);
+    this.point = this.point.bind(this);
 
     this.timeout;
 
@@ -53,6 +55,7 @@ export default class LinksScreen extends React.Component {
 
   async componentDidMount() {
     this.update();
+    this.point();
     this.props.navigation.addListener('willBlur', () => this.stopAudio());
     try {
       await this.soundObject.loadAsync(require("../assets/audio/background-music.wav"));
@@ -174,6 +177,15 @@ export default class LinksScreen extends React.Component {
     }).start();
   }
 
+  point() {
+    this.fingerValue.setValue(0);
+    Animated.timing(this.fingerValue, {
+      toValue: 100,
+      duration: 1500,
+      easing: Easing.linear
+    }).start(this.point);
+  }
+
   exhale() {
     this.playAudio(require("../assets/audio/ocean-exhale-2s.wav"));
     this.setState({ breathing: false, exhaling: true });
@@ -199,6 +211,16 @@ export default class LinksScreen extends React.Component {
     const breatheLimbs = this.breatheValue.interpolate({
       inputRange: [0, 100],
       outputRange: [1, 1.4]
+    });
+
+    const fingerX = this.fingerValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [-200, -30]
+    });
+
+    const fingerY = this.fingerValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0, 175]
     });
 
     if (this.state.progress < 0.33) {
@@ -312,6 +334,19 @@ export default class LinksScreen extends React.Component {
               }}
               //resizeMode="contain"
               source={bearImages[this.state.bearState].limb}
+            />
+            <Animated.Image
+              style={{
+                bottom: fingerY,
+                right: fingerX,
+                width: "10%",
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: 5
+              }}
+              //resizeMode="contain"
+              source={require("../assets/images/misc/pointer_finger.png")}
             />
           </View>
         </View>
