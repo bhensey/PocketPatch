@@ -56,17 +56,19 @@ export default class LinksScreen extends React.Component {
   async componentDidMount() {
     this.update();
     this.point();
-    this.props.navigation.addListener('willBlur', () => this.stopAudio());
+    this.props.navigation.addListener("willBlur", () => this.stopAudio());
     try {
-      await this.soundObject.loadAsync(require("../assets/audio/background-music.wav"));
+      await this.soundObject.loadAsync(
+        require("../assets/audio/background-music.wav")
+      );
       await this.soundObject.playAsync();
     } catch (error) {
       console.log(error);
     }
   }
 
-  async stopAudio(){
-    try{
+  async stopAudio() {
+    try {
       await this.soundObject.unloadAsync();
     } catch (error) {
       console.log(error);
@@ -87,7 +89,9 @@ export default class LinksScreen extends React.Component {
 
   update() {
     if (this.state.progress >= 1) {
-      this.props.navigation.navigate("PostBreathing", {name: this.props.navigation.state.params.name});
+      this.props.navigation.navigate("PostBreathing", {
+        name: this.props.navigation.state.params.name
+      });
       this.setState({ progress: 0 });
       clearTimeout(this.timeout);
     }
@@ -114,11 +118,17 @@ export default class LinksScreen extends React.Component {
           this.setState({ progress: this.state.progress + 0.1 });
           numBreaths += 1;
           if (this.state.progress < 0.33) {
-            this.setState({ duration: this.props.navigation.state.params.timing[0] });
+            this.setState({
+              duration: this.props.navigation.state.params.timing[0]
+            });
           } else if (this.state.progress < 0.66) {
-            this.setState({ duration: this.props.navigation.state.params.timing[1] });
+            this.setState({
+              duration: this.props.navigation.state.params.timing[1]
+            });
           } else {
-            this.setState({ duration: this.props.navigation.state.params.timing[2] });
+            this.setState({
+              duration: this.props.navigation.state.params.timing[2]
+            });
           }
         }
         this.setState(
@@ -335,20 +345,64 @@ export default class LinksScreen extends React.Component {
               //resizeMode="contain"
               source={bearImages[this.state.bearState].limb}
             />
-            {!this.state.isRunning &&
-            <Animated.Image
+            {!this.state.isRunning && (
+              <Animated.Image
+                style={{
+                  bottom: fingerY,
+                  right: fingerX,
+                  width: "10%",
+                  resizeMode: "contain",
+                  flex: 1,
+                  position: "absolute",
+                  zIndex: 5
+                }}
+                //resizeMode="contain"
+                source={require("../assets/images/misc/pointer_finger.png")}
+              />
+            )}
+            <Image
               style={{
-                bottom: fingerY,
-                right: fingerX,
-                width: "10%",
+                transform: [{ scale: this.state.breathing ? 1.3 : 1 }],
+                opacity: 0.3,
+                tintColor: "gray",
+                width: "70%",
                 resizeMode: "contain",
                 flex: 1,
                 position: "absolute",
-                zIndex: 5
+                zIndex: -10
               }}
               //resizeMode="contain"
-              source={require("../assets/images/misc/pointer_finger.png")}
-            />}
+              source={bearImages["neutral"].head}
+            />
+
+            <Image
+              style={{
+                transform: [{ scale: this.state.breathing ? 1.3 : 1 }],
+                opacity: 0.3,
+                tintColor: "gray",
+                width: "70%",
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: -10
+              }}
+              //resizeMode="contain"
+              source={bearImages["neutral"].belly}
+            />
+            <Image
+              style={{
+                transform: [{ scale: this.state.breathing ? 1.3 : 1 }],
+                opacity: 0.3,
+                tintColor: "gray",
+                width: "70%",
+                resizeMode: "contain",
+                flex: 1,
+                position: "absolute",
+                zIndex: -10
+              }}
+              //resizeMode="contain"
+              source={bearImages["neutral"].limb}
+            />
           </View>
         </View>
       </ImageBackground>
