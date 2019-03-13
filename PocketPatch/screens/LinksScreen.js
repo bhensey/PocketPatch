@@ -225,12 +225,22 @@ export default class LinksScreen extends React.Component {
 
     const fingerX = this.fingerValue.interpolate({
       inputRange: [0, 100],
-      outputRange: [-200, -30]
+      outputRange: [-120, -70]
     });
 
     const fingerY = this.fingerValue.interpolate({
       inputRange: [0, 100],
-      outputRange: [0, 175]
+      outputRange: [80, 150]
+    });
+
+    const fingerZ = this.fingerValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [2, 1]
+    });
+
+    const fingerOpacity = this.fingerValue.interpolate({
+      inputRange: [0, 100],
+      outputRange: [0.5, 1]
     });
 
     if (this.state.progress < 0.33) {
@@ -350,19 +360,23 @@ export default class LinksScreen extends React.Component {
                 style={{
                   bottom: fingerY,
                   right: fingerX,
-                  width: "10%",
+                  transform: [{ scale: fingerZ }],
+                  opacity: fingerOpacity,
+                  width: 80,
                   resizeMode: "contain",
                   flex: 1,
                   position: "absolute",
                   zIndex: 5
                 }}
                 //resizeMode="contain"
-                source={require("../assets/images/misc/pointer_finger.png")}
+                source={require("../assets/images/misc/finger.png")}
               />
             )}
             <Image
               style={{
-                transform: [{ scale: this.state.breathing ? 1.3 : 1 }],
+                transform: [
+                  { scale: this.state.bubbleText === "Breathe In" ? 1.3 : 1 }
+                ],
                 opacity: 0.3,
                 tintColor: "gray",
                 width: "70%",
@@ -377,7 +391,9 @@ export default class LinksScreen extends React.Component {
 
             <Image
               style={{
-                transform: [{ scale: this.state.breathing ? 1.3 : 1 }],
+                transform: [
+                  { scale: this.state.bubbleText === "Breathe In" ? 1.3 : 1 }
+                ],
                 opacity: 0.3,
                 tintColor: "gray",
                 width: "70%",
@@ -391,7 +407,9 @@ export default class LinksScreen extends React.Component {
             />
             <Image
               style={{
-                transform: [{ scale: this.state.breathing ? 1.3 : 1 }],
+                transform: [
+                  { scale: this.state.bubbleText === "Breathe In" ? 1.3 : 1 }
+                ],
                 opacity: 0.3,
                 tintColor: "gray",
                 width: "70%",
