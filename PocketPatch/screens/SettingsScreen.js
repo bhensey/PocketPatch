@@ -12,8 +12,6 @@ export default class SettingsScreen extends React.Component {
 
     if (this.props.navigation.getParam("mood", "ok") == "ok"){
       setTimeout(() => this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")}), 2000)
-    } else {
-      setTimeout(() => this.props.navigation.navigate("History", {name:this.props.navigation.getParam("name", "")}), 20000)
     }
   }
 
