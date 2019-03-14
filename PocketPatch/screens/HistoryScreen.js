@@ -46,6 +46,24 @@ export default class HistoryScreen extends React.Component {
         <View style={styles.container}>
           <Text style={styles.title}>{this.props.navigation.getParam("name", "")}'s Progress</Text>
           <HistoryTable></HistoryTable>
+          <View style={{marginBottom: 15, width:"100%", alignItems:"center"}}>
+            <Text>You are on a roll! <Text style={{fontWeight:"bold"}}>5</Text> days of improvement!</Text>
+            <Text>7 days total</Text>
+            <View>
+              <Text>Coin count:</Text>
+              <Image
+                style={{
+                  width: undefined,
+                  height: 75,
+                  resizeMode: "contain"
+                }}
+                source={require("../assets/images/finalAssets/coin.png")}
+              />
+              <View style={{top:25, left:0, right:0, bottom:0, position: "absolute", justifyContent: "center", alignItems: "center"}}>
+                  <Text>25x</Text>
+              </View>
+            </View>
+          </View>
         </View>
     );
   }

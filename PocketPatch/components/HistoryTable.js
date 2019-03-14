@@ -11,49 +11,49 @@ export default class ExampleOne extends Component {
       tableHead: ["Date", "Duration", "Before", "After", "Coins"],
       tableData: [
         [
-          "Today\n14 Mar 2019",
+          "Today",
           "7 min",
           <OkFace />,
           <OkFace />,
           <Coin coinValue={5} />
         ],
         [
-          "Thursday\n14 Mar 2019",
+          "Thurs\n14 Mar 2019",
           "7 min",
           <OkFace />,
           <OkFace />,
           <Coin coinValue={5} />
         ],
         [
-          "Wednesday\n13 Mar 2019",
+          "Wed\n13 Mar 2019",
           "6 min",
           <AngryFace />,
           <OkFace />,
           <Coin coinValue={4} />
         ],
         [
-          "Tuesday\n12 Mar 2019",
+          "Tues\n12 Mar 2019",
           "7 min",
           <AngryFace />,
           <AngryFace />,
           <Coin coinValue={2} />
         ],
         [
-          "Monday\n11 Mar 2019",
+          "Mon\n11 Mar 2019",
           "6 min",
           <WoundUpFace />,
           <AngryFace />,
           <Coin coinValue={3} />
         ],
         [
-          "Sunday\n10 Mar 2019",
+          "Sun\n10 Mar 2019",
           "6 min",
           <WoundUpFace />,
           <AngryFace />,
           <Coin coinValue={3} />
         ],
         [
-          "Saturday\n9 Mar 2019",
+          "Sat\n9 Mar 2019",
           "5 min",
           <WoundUpFace />,
           <AngryFace />,
