@@ -16,6 +16,24 @@ import { WebBrowser, Audio } from "expo";
 import { Button } from "react-native-elements";
 import { MonoText } from "../components/StyledText";
 
+export class Coin extends Component {
+  render() {
+    return (
+      <View>
+        <Image
+          style={{
+            width: undefined,
+            height: 50,
+            resizeMode: "contain"
+          }}
+          source={require("../assets/images/finalAssets/coin.png")}
+        />
+        <Text style={{ position: "absolute" }}>5</Text>
+      </View>
+    );
+  }
+}
+
 export class OkFace extends Component {
   render() {
     return (
@@ -23,26 +41,26 @@ export class OkFace extends Component {
         style={{ width: undefined, height: 100, resizeMode: "contain" }}
         source={require("../assets/images/start-end-images/OK-01-01.png")}
       />
-    )
+    );
   }
 }
 export class AngryFace extends Component {
   render() {
     return (
       <Image
-      style={{ width: undefined, height: 100, resizeMode: "contain" }}
-      source={require("../assets/images/start-end-images/upset-02-02.png")}
+        style={{ width: undefined, height: 100, resizeMode: "contain" }}
+        source={require("../assets/images/start-end-images/upset-02-02.png")}
       />
-    )
+    );
   }
 }
 export class WoundUpFace extends Component {
   render() {
     return (
       <Image
-      style={{ width: undefined, height: 100, resizeMode: "contain" }}
-      source={require("../assets/images/start-end-images/wound-up-03-03.png")}
+        style={{ width: undefined, height: 100, resizeMode: "contain" }}
+        source={require("../assets/images/start-end-images/wound-up-03-03.png")}
       />
-    )
+    );
   }
 }
