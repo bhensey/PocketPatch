@@ -44,7 +44,7 @@ export default class HistoryScreen extends React.Component {
   render() {
     return (
         <View style={styles.container}>
-          <Text style={styles.title}>{this.props.navigation.getParam("name", "")}'s Moods</Text>
+          <Text style={styles.title}>{this.props.navigation.getParam("name", "")}'s Progress</Text>
           <HistoryTable></HistoryTable>
         </View>
     );

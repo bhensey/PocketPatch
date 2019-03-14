@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
   View,
   PanResponder,
-  TouchableHighlight
+  TouchableHighlight,
+
 } from "react-native";
 import { WebBrowser, Audio } from "expo";
 import { Button } from "react-native-elements";
@@ -28,7 +29,9 @@ export class Coin extends Component {
           }}
           source={require("../assets/images/finalAssets/coin.png")}
         />
-        <Text style={{ position: "absolute" }}>5</Text>
+        <View style={{top:0, left:0, right:0, bottom:0, position: "absolute", justifyContent: "center", alignItems: "center"}}>
+            <Text>{this.props.coinValue}x</Text>
+        </View>
       </View>
     );
   }

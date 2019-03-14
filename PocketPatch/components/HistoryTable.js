@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Image } from "react-native";
+import { StyleSheet, View, Text, Image, ScrollView } from "react-native";
 import { Table, Row, Rows } from "react-native-table-component";
 import { Coin, OkFace, AngryFace, WoundUpFace } from "./BearIcons";
 
@@ -66,7 +66,7 @@ export default class ExampleOne extends Component {
   render() {
     const state = this.state;
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Table borderStyle={{ borderWidth: 2, borderColor: "#c8e1ff" }}>
           <Row
             data={state.tableHead}
@@ -75,7 +75,7 @@ export default class ExampleOne extends Component {
           />
           <Rows data={state.tableData} textStyle={styles.text} />
         </Table>
-      </View>
+      </ScrollView>
     );
   }
 }
