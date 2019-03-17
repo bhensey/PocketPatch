@@ -1,26 +1,24 @@
 # PocketPatch
 ## Synopsis
 
-At the top of the file there should be a short introduction and/ or overview that explains **what** the project is. This description should match descriptions added for package managers (Gemspec, package.json, etc.)
-
-## Code Example
-
-Show what the library does as concisely as possible, developers should be able to figure out **how** your project solves their problem by looking at the code example. Make sure the API you are showing off is obvious, and that your code is short and concise.
+PocketPatch is a mobile app to be used to help users regulate their breathing patterns. By tapping the screen, the user can control a bear who directs the user when to inhale and exhale and earn points when the exercise is completed.
 
 ## Motivation
 
-A short description of the motivation behind the creation and maintenance of the project. This should explain **why** the project exists.
+PocketPatch was created in hopes of assisting parents in calming their children when tantrums, outbursts or other mood swings occur. Children are able to practice regulating their breathing while parents can see the breathing history and developments of their children.
 
-## Installation
+## Installation and Dependencies
 
-Provide code examples and explanations of how to get the project.
-Dependencies
+npm install
+npm install --save react
+npm install expo
+npm install react-native
+npm install react-native-elements
+npm install react-native-confetti
+npm install react-native-progress
+npm install react-native-table-component
+npm start
 
 ## Running
 
-Describe and show how to run the tests with code examples.
-
-## API Reference
-
-Depending on the size of the project, if it is small and simple enough the reference docs can be added to the README. For medium size to larger projects it is important to at least provide a link to where the API reference docs live.
-
+Download expo app on phone and scan QR code to open project.
