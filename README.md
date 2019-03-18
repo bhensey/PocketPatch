@@ -1,6 +1,8 @@
 # PocketPatch
 ## Synopsis
 
+![](PocketPatch/assets/images/bearwithshadow.gif)
+
 PocketPatch is a mobile app to be used to help users regulate their breathing patterns. By tapping the screen, the user can control a bear who directs the user when to inhale and exhale and earn points when the exercise is completed.
 
 ## Motivation
